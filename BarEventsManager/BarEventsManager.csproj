@@ -197,6 +197,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -213,6 +214,10 @@
     <Compile Include="Migrations\201705022159325_Readdedtables.cs" />
     <Compile Include="Migrations\201705022159325_Readdedtables.Designer.cs">
       <DependentUpon>201705022159325_Readdedtables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705022233527_addedtitletoevents.cs" />
+    <Compile Include="Migrations\201705022233527_addedtitletoevents.Designer.cs">
+      <DependentUpon>201705022233527_addedtitletoevents.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -295,6 +300,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Events\Create.cshtml" />
+    <Content Include="Views\Events\Delete.cshtml" />
+    <Content Include="Views\Events\Details.cshtml" />
+    <Content Include="Views\Events\Edit.cshtml" />
+    <Content Include="Views\Events\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -317,6 +327,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705022159325_Readdedtables.resx">
       <DependentUpon>201705022159325_Readdedtables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705022233527_addedtitletoevents.resx">
+      <DependentUpon>201705022233527_addedtitletoevents.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

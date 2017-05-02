@@ -4,6 +4,7 @@ namespace BarEventsManager.Migrations
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -45,6 +46,27 @@ namespace BarEventsManager.Migrations
                 userManager.Create(user, adminPassword);
                 userManager.AddToRole(user.Id, adminRole);
             }
+
+            var venues = new List<Venue>
+            {
+                new Venue { Name = "TomorrowLand", Location = "Kansas"},
+                new Venue { Name = "Bar of the Gods", Location ="Portland"},
+                new Venue { Name = "Peabody's", Location = "Temple Terrace"}
+            };
+
+            venues.ForEach(fe => context.Venues.AddOrUpdate(o => o.Name, fe));
+
+            var genres = new List<Genre>
+            {
+                new Genre { Name = "Comedy Show"},
+                new Genre { Name = "Concert"},
+                new Genre { Name = "Heroes of Newerth Championships"},
+                new Genre { Name = "Yu-Gi-Oh tournament"}
+            };
+
+            genres.ForEach(g => context.Genres.AddOrUpdate(o => o.Name, g));
+
+
             context.SaveChanges();
         }
     }

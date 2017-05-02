@@ -29,5 +29,9 @@ namespace BarEventsManager.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Venue> Venues { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<Events> Events { get; set; }
     }
 }

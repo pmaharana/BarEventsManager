@@ -9,5 +9,8 @@ namespace BarEventsManager.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public virtual ICollection<Events> Events { get; set; } = new HashSet<Events>();
+
     }
 }

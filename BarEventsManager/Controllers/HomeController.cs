@@ -14,8 +14,23 @@ namespace BarEventsManager.Controllers
 
         public ActionResult Index()
         {
+            var eventsFromCache = HttpRuntime.Cache["eventlist"];
+            if (eventsFromCache == null)
+            {
             var data = db.Events.Include(e => e.Venue).Include(e => e.WhyIsThereAGenre).ToList();
-            return View(data);
+                //add the list to cache
+                HttpRuntime.Cache.Add(
+                    "eventList",
+                    data,
+                    null,
+                    DateTime.Now.AddDays(3),
+                    new TimeSpan(),
+                    System.Web.Caching.CacheItemPriority.High,
+                    null);
+                eventsFromCache = HttpRuntime.Cache["eventList"];
+            }
+
+            return View(eventsFromCache);
         }
 
         [HttpPost]

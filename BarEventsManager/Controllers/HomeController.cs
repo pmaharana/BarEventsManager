@@ -18,18 +18,13 @@ namespace BarEventsManager.Controllers
             return View(data);
         }
 
-        public ActionResult About()
+        [HttpPost]
+       public ActionResult Search(string needle)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var results = db.Events.Include(e => e.Venue).Include(e => e.WhyIsThereAGenre)
+                .Where(w => w.Title.Contains(needle) || w.Description.Contains(needle))
+                .ToList();
+            return PartialView("_ListOfEvents", results);
         }
     }
 }

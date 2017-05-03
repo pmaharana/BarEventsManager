@@ -10,116 +10,112 @@ using BarEventsManager.Models;
 
 namespace BarEventsManager.Controllers
 {
-    public class EventsController : Controller
+    public class OrdersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Events
+        // GET: Orders
         public ActionResult Index()
         {
-            var events = db.Events.Include(e => e.Venue).Include(e => e.WhyIsThereAGenre);
-            return View(events.ToList());
+            var orders = db.Orders.Include(o => o.User);
+            return View(orders.ToList());
         }
 
-        // GET: Events/Details/5
+        // GET: Orders/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Events events = db.Events.Find(id);
-            if (events == null)
+            Order order = db.Orders.Find(id);
+            if (order == null)
             {
                 return HttpNotFound();
             }
-            return View(events);
+            return View(order);
         }
 
-        // GET: Events/Create
+        // GET: Orders/Create
         public ActionResult Create()
         {
-            ViewBag.VenueId = new SelectList(db.Venues, "Id", "Name");
-            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name");
+            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email");
             return View();
         }
 
-        // POST: Events/Create
+        // POST: Orders/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,EventDate,StartTime,EndTime,GenreId,VenueId,Price")] Events events)
+        public ActionResult Create([Bind(Include = "Id,TimeCreated,Fulfilled,CustomerId")] Order order)
         {
             if (ModelState.IsValid)
             {
-                db.Events.Add(events);
+                db.Orders.Add(order);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.VenueId = new SelectList(db.Venues, "Id", "Name", events.VenueId);
-            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", events.GenreId);
-            return View(events);
+            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email", order.CustomerId);
+            return View(order);
         }
 
-        // GET: Events/Edit/5
+        // GET: Orders/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Events events = db.Events.Find(id);
-            if (events == null)
+            Order order = db.Orders.Find(id);
+            if (order == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.VenueId = new SelectList(db.Venues, "Id", "Name", events.VenueId);
-            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", events.GenreId);
-            return View(events);
+            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email", order.CustomerId);
+            return View(order);
         }
 
-        // POST: Events/Edit/5
+        // POST: Orders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Description,EventDate,StartTime,EndTime,GenreId,VenueId,Price")] Events events)
+        public ActionResult Edit([Bind(Include = "Id,TimeCreated,Fulfilled,CustomerId")] Order order)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(events).State = EntityState.Modified;
+                db.Entry(order).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.VenueId = new SelectList(db.Venues, "Id", "Name", events.VenueId);
-            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", events.GenreId);
-            return View(events);
+            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email", order.CustomerId);
+            return View(order);
         }
 
-        // GET: Events/Delete/5
+        // GET: Orders/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Events events = db.Events.Find(id);
-            if (events == null)
+            Order order = db.Orders.Find(id);
+            if (order == null)
             {
                 return HttpNotFound();
             }
-            return View(events);
+            return View(order);
         }
 
-        // POST: Events/Delete/5
+        // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Events events = db.Events.Find(id);
-            db.Events.Remove(events);
+            Order order = db.Orders.Find(id);
+            db.Orders.Remove(order);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

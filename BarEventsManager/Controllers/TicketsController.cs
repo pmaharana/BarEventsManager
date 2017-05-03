@@ -10,116 +10,116 @@ using BarEventsManager.Models;
 
 namespace BarEventsManager.Controllers
 {
-    public class EventsController : Controller
+    public class TicketsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Events
+        // GET: Tickets
         public ActionResult Index()
         {
-            var events = db.Events.Include(e => e.Venue).Include(e => e.WhyIsThereAGenre);
-            return View(events.ToList());
+            var tickets = db.Tickets.Include(t => t.Event).Include(t => t.User);
+            return View(tickets.ToList());
         }
 
-        // GET: Events/Details/5
+        // GET: Tickets/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Events events = db.Events.Find(id);
-            if (events == null)
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
             {
                 return HttpNotFound();
             }
-            return View(events);
+            return View(ticket);
         }
 
-        // GET: Events/Create
+        // GET: Tickets/Create
         public ActionResult Create()
         {
-            ViewBag.VenueId = new SelectList(db.Venues, "Id", "Name");
-            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name");
+            ViewBag.EventsId = new SelectList(db.Events, "Id", "Title");
+            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email");
             return View();
         }
 
-        // POST: Events/Create
+        // POST: Tickets/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,EventDate,StartTime,EndTime,GenreId,VenueId,Price")] Events events)
+        public ActionResult Create([Bind(Include = "Id,DatePurchased,EventsId,CustomerId")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
-                db.Events.Add(events);
+                db.Tickets.Add(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.VenueId = new SelectList(db.Venues, "Id", "Name", events.VenueId);
-            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", events.GenreId);
-            return View(events);
+            ViewBag.EventsId = new SelectList(db.Events, "Id", "Title", ticket.EventsId);
+            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email", ticket.CustomerId);
+            return View(ticket);
         }
 
-        // GET: Events/Edit/5
+        // GET: Tickets/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Events events = db.Events.Find(id);
-            if (events == null)
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.VenueId = new SelectList(db.Venues, "Id", "Name", events.VenueId);
-            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", events.GenreId);
-            return View(events);
+            ViewBag.EventsId = new SelectList(db.Events, "Id", "Title", ticket.EventsId);
+            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email", ticket.CustomerId);
+            return View(ticket);
         }
 
-        // POST: Events/Edit/5
+        // POST: Tickets/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Description,EventDate,StartTime,EndTime,GenreId,VenueId,Price")] Events events)
+        public ActionResult Edit([Bind(Include = "Id,DatePurchased,EventsId,CustomerId")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(events).State = EntityState.Modified;
+                db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.VenueId = new SelectList(db.Venues, "Id", "Name", events.VenueId);
-            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", events.GenreId);
-            return View(events);
+            ViewBag.EventsId = new SelectList(db.Events, "Id", "Title", ticket.EventsId);
+            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email", ticket.CustomerId);
+            return View(ticket);
         }
 
-        // GET: Events/Delete/5
+        // GET: Tickets/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Events events = db.Events.Find(id);
-            if (events == null)
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
             {
                 return HttpNotFound();
             }
-            return View(events);
+            return View(ticket);
         }
 
-        // POST: Events/Delete/5
+        // POST: Tickets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Events events = db.Events.Find(id);
-            db.Events.Remove(events);
+            Ticket ticket = db.Tickets.Find(id);
+            db.Tickets.Remove(ticket);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

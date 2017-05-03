@@ -127,3 +127,4 @@ C:\Users\prana\tiy\week-8\day-2\BarEventsManager\BarEventsManager\obj\Debug\BarE
 C:\Users\prana\tiy\week-8\day-2\BarEventsManager\BarEventsManager\obj\Debug\BarEventsManager.Migrations.Modelscreated.resources
 C:\Users\prana\tiy\week-8\day-2\BarEventsManager\BarEventsManager\obj\Debug\BarEventsManager.Migrations.Readdedtables.resources
 C:\Users\prana\tiy\week-8\day-2\BarEventsManager\BarEventsManager\obj\Debug\BarEventsManager.Migrations.addedtitletoevents.resources
+C:\Users\prana\tiy\week-8\day-2\BarEventsManager\BarEventsManager\obj\Debug\BarEventsManager.Migrations.udatedclasses.resources

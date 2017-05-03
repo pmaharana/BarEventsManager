@@ -39,7 +39,7 @@ namespace BarEventsManager.Controllers
         // GET: Orders/Create
         public ActionResult Create()
         {
-            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email");
+            ViewBag.CustomerId = new SelectList(db.Users, "Id", "Email");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace BarEventsManager.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email", order.CustomerId);
+            ViewBag.CustomerId = new SelectList(db.Users, "Id", "Email", order.CustomerId);
             return View(order);
         }
 
@@ -73,7 +73,7 @@ namespace BarEventsManager.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email", order.CustomerId);
+            ViewBag.CustomerId = new SelectList(db.Users, "Id", "Email", order.CustomerId);
             return View(order);
         }
 
@@ -90,7 +90,7 @@ namespace BarEventsManager.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email", order.CustomerId);
+            ViewBag.CustomerId = new SelectList(db.Users, "Id", "Email", order.CustomerId);
             return View(order);
         }
 

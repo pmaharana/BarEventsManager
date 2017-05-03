@@ -40,7 +40,7 @@ namespace BarEventsManager.Controllers
         public ActionResult Create()
         {
             ViewBag.EventsId = new SelectList(db.Events, "Id", "Title");
-            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email");
+            ViewBag.CustomerId = new SelectList(db.Users, "Id", "Email");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace BarEventsManager.Controllers
             }
 
             ViewBag.EventsId = new SelectList(db.Events, "Id", "Title", ticket.EventsId);
-            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email", ticket.CustomerId);
+            ViewBag.CustomerId = new SelectList(db.Users, "Id", "Email", ticket.CustomerId);
             return View(ticket);
         }
 
@@ -76,7 +76,7 @@ namespace BarEventsManager.Controllers
                 return HttpNotFound();
             }
             ViewBag.EventsId = new SelectList(db.Events, "Id", "Title", ticket.EventsId);
-            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email", ticket.CustomerId);
+            ViewBag.CustomerId = new SelectList(db.Users, "Id", "Email", ticket.CustomerId);
             return View(ticket);
         }
 
@@ -94,7 +94,7 @@ namespace BarEventsManager.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.EventsId = new SelectList(db.Events, "Id", "Title", ticket.EventsId);
-            ViewBag.CustomerId = new SelectList(db.ApplicationUsers, "Id", "Email", ticket.CustomerId);
+            ViewBag.CustomerId = new SelectList(db.Users, "Id", "Email", ticket.CustomerId);
             return View(ticket);
         }
 

@@ -41,6 +41,9 @@ namespace BarEventsManager.Models
         [DisplayFormat(DataFormatString = "{0:C}")]
         public double Price { get; set; }
 
+        [NotMapped]
+        public Guid TrackerId { get; set; } = Guid.NewGuid();
 
+        public ICollection<Order> Orders { get; set; }
     }
 }

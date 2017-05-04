@@ -1,0 +1,21 @@
+﻿@model BarEventsManager.Models.Order
+
+<i class="glyphicon glyphicon-record"></i>
+
+@if (Model.Event.Any())
+{
+   <h3>Your Orders:</h3> 
+   <ul>
+       @foreach (var ticket in Model.Event)
+       {
+           <li>Ticket - @ticket.Title</li>
+       }
+   </ul>
+   @Html.ActionLink("Checkout", "Checkout", "Home")
+
+}
+else
+{
+    <h3>You aint got no tickets foo!</h3>
+}
+

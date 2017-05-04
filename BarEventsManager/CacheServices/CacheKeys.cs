@@ -5,7 +5,11 @@ using System.Web;
 
 namespace BarEventsManager.CacheServices
 {
-    public class CacheKeys
+    public static class CacheKeys
     {
+        static public string Events()
+        {
+            return "events";
+        }
     }
 }

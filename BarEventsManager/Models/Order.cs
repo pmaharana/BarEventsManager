@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -19,7 +20,17 @@ namespace BarEventsManager.Models
         [ForeignKey("CustomerId")]
         public virtual ApplicationUser User { get; set; }
 
-        public virtual ICollection<Ticket> Tickets { get; set; } = new HashSet<Ticket>();
+        public virtual ICollection<Events> Event { get; set; } = new HashSet<Events>();
+
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        [NotMapped]
+        public double TotalPrice
+        {
+            get
+            {
+                return Event.Sum(s => s.Price);
+            }
+        }
 
 
 
